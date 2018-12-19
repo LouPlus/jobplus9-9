@@ -49,14 +49,14 @@ class UserForm(FlaskForm):
     submit=SubmitField('提交')
 
     def complete(self,id):
-        user=User.query.filter_by(id=id)
+        user=User.query.filter_by(id=id).first()
         # user.work_resume=self.work_resume.data
         user.username=self.username.data
         user.phone_number=self.phone_number.data
         user.work_year=self.work_year.data
         # user.company=self.company.data
         db.session.add(user)
-        db.session.cpmmit()
+        db.session.commit()
 
 class BossForm(FlaskForm):
     email=StringField('邮箱',validators=[Required(),Email()])
@@ -69,3 +69,7 @@ class BossForm(FlaskForm):
     financing=StringField("融资")
     company_field=StringField("领域")
     submit=SubmitField('提交')
+
+    def complete(self,id):
+        #TODO
+        pass
