@@ -7,7 +7,7 @@ company = Blueprint("company", __name__, url_prefix='/company')
 def index():
     return "公司信息"
 
-@company.route("/profile",methods=["GET","POST"])
-def profile():
+@company.route("/profile/<int:id>",methods=["GET","POST"])
+def profile(id):
     form=BossForm()
-    return render_template('company/profile.html', form=form)
+    return render_template('company/profile.html', form=form,id=id)
