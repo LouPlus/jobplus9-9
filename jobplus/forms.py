@@ -44,10 +44,19 @@ class UserForm(FlaskForm):
     username=StringField('用户名',validators=[Required(),Length(3, 24)])
     phone_number=IntegerField('手机号',validators=[Required()])
     work_year=IntegerField("工作经验",validators=[Required()])
-    work_resume = FileField('简历',validators=[Required()])
-    company=StringField('公司')
+    # work_resume = FileField('简历',validators=[Required()])
+    # company=StringField('公司')
     submit=SubmitField('提交')
 
+    def complete(self,id):
+        user=User.query.filter_by(id=id)
+        # user.work_resume=self.work_resume.data
+        user.username=self.username.data
+        user.phone_number=self.phone_number.data
+        user.work_year=self.work_year.data
+        # user.company=self.company.data
+        db.session.add(user)
+        db.session.cpmmit()
 
 class BossForm(FlaskForm):
     email=StringField('邮箱',validators=[Required(),Email()])
