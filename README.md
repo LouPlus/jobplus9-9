@@ -20,9 +20,7 @@ flask run
 
 ### 功能测试
 
-在顶级目录jobplus9-9下，
-
-在与manage.py同级的目录下，在命令行输入：
+先运行Flask服务器，在与manage.py同级的目录下，在命令行输入：
 
 ```shell
 python tests/functional_tests.py
