@@ -26,8 +26,10 @@ class NewVistorTest(unittest.TestCase):
         self.browser.get('http://localhost:5000/')
         self.assertTrue(re.search('JobPlus', self.browser.page_source))
 
-    # def test_can_personal_register(self):
+    def test_can_personal_register(self):
+        self.browser.get('http://localhost:5000/')
         self.browser.find_element_by_link_text('求职者注册').click()
+        self.assertIn('<h2>用户注册</h2>', self.browser.page_source)
         self.browser.find_element_by_name('email').send_keys('limin@123.com')
         self.browser.find_element_by_name('password').send_keys('limin@123.com')
         self.browser.find_element_by_name('repeat_password').send_keys('limin@123.com')
