@@ -50,7 +50,7 @@ def ban_user(id):
     if user.is_boss:
         return redirect(url_for('admin.users_boss',page=session.get('user_boss')))
     else:
-        return redirect(url_for('admin.user_user'),page=session.get('user_page'))
+        return redirect(url_for('admin.user_user',page=session.get('user_page')))
 
 
 @admin.route('/users/adduser', methods=["GET", "POST"])
