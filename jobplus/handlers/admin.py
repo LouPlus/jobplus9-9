@@ -32,7 +32,7 @@ def users_boss():
 @admin.route("/users/user")
 def user_user():
     page = request.args.get('page', default=1, type=int)
-    session['user_page']=page
+    session['user_page'] = page
     pagination = User.query.filter_by(role=10).paginate(
         page=page,
         per_page=current_app.config['ADMIN_PER_PAGE'],
@@ -44,6 +44,7 @@ def user_user():
 @admin.route('/jobs')
 def admin_jobs():
     page = request.args.get('page', default=1, type=int)
+    session['job_page'] = page
     pagination = Job.query.paginate(
         page=page,
         per_page=current_app.config['ADMIN_PER_PAGE'],
@@ -110,9 +111,9 @@ def delete_user(id):
     db.session.commit()
     flash('用户 "{}" 删除成功'.format(user.username), 'success')
     if user.is_boss:
-        return redirect(url_for('admin.users_boss',page=session.get('user_boss')))
+        return redirect(url_for('admin.users_boss', page=session.get('user_boss')))
     else:
-        return redirect(url_for('admin.user_user',page=session.get('user_page')))
+        return redirect(url_for('admin.user_user', page=session.get('user_page')))
 
 
 @admin.route('/job/<int:id>/delete')
@@ -121,7 +122,7 @@ def delete_job(id):
     db.session.delete(job)
     db.session.commit()
     flash('职位 "{}" 删除成功'.format(job.job_title), 'success')
-    return redirect(url_for('admin.admin_jobs'))
+    return redirect(url_for('admin.admin_jobs', page=session.get('job_page')))
 
 
 @admin.route('/users/edituser/<int:id>', methods=["GET", "POST"])
@@ -161,5 +162,5 @@ def edit_job(id):
     if form.validate_on_submit():
         form.update_job(job)
         flash('职位信息修改成功', 'success')
-        return redirect(url_for('admin.admin_jobs'))
+        return redirect(url_for('admin.admin_jobs'), page=session.get('job_page'))
     return render_template('admin/edit_jobs.html', form=form, job=job)
