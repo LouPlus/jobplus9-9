@@ -32,7 +32,7 @@ class User(BaseModel, UserMixin):
     _password = db.Column(db.String(258), nullable=False)
     phone_number = db.Column(db.String(11), unique=True)
     work_year = db.Column(db.Integer)
-    work_resume = db.column(db.String(256))
+    work_resume = db.Column(db.String(256))
     role = db.Column(db.SmallInteger, default=ROLE_USER)
     company_id = db.Column(db.Integer,
                            db.ForeignKey("company.id", ondelete="CASCADE"))

@@ -2,6 +2,11 @@
 {% from "macros.html" import render_pagination %}
 {% block body %}
 <div class="container">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="{{ url_for('job.todo') }}">未处理列表</a></li>
+        <li role="presentation"><a href="{{ url_for('job.rejectlist') }}">不合适列表</a></li>
+        <li role="presentation"><a href="{{ url_for('job.interview')}}">面试列表</a></li>
+    </ul>
     <table class="table">
         <thead>
         <tr>
@@ -19,23 +24,19 @@
             <td>{{ user.id }}</td>
             <td>{{ user.job.job_title }}</td>
             <td>{{ user.user.username}}</td>
+            <td>{{ user.user.work_resume}}</td>
             <td>{{ user.create_at}}</td>
-            <td>{{ user.create_at}}</td>
-            {% block button %}
             <td>
                 <div class="btn-group" role="group" aria-label="...">
                     <a href="{{ url_for('job.reject',id=user.id) }}" type="button" class="btn btn-default">不合适</a>
                     <a href="{{ url_for('job.inter',id=user.id) }}" type="button" class="btn btn-default">面试</a>
                 </div>
             </td>
-            {% endblock %}
         </tr>
         {% endfor %}
         </tbody>
 
     </table>
-    {% block page %}
-    {{ render_pagination(pagination, 'job.rejectlist') }}
-    {% endblock%}
+    {{ render_pagination(pagination, 'job.todo') }}
 </div>
 {% endblock %}

@@ -58,12 +58,6 @@
             投递简历
         </a>
         </p>
-        {% else %}
-        <li class="disabled"><a href="{{ url_for('job.apply',job_id=job.id) }}" type="button" class="btn btn-primary">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            投递简历
-        </a>
-        </li>
         {% endif %}
     </div>
 </div>

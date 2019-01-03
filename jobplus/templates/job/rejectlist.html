@@ -1,6 +1,11 @@
-{% extends '/job/todolist.html' %}
-{% block button %}
+{% extends '/job/interview.html' %}
+{% block tab %}
+<ul class="nav nav-tabs">
+    <li role="presentation"><a href="{{ url_for('job.todo') }}">未处理列表</a></li>
+    <li role="presentation" class="active" ><a href="{{ url_for('job.rejectlist') }}">不合适列表</a></li>
+    <li role="presentation"><a href="{{ url_for('job.interview')}}">面试列表</a></li>
+</ul>
 {% endblock %}
-{% block page %}
- {{ render_pagination(pagination, 'job.todo') }}
-{% endblock %}
+
+{{ render_pagination(pagination, 'job.rejectlist') }}
+

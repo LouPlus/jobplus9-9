@@ -24,9 +24,9 @@ def job_detail(id):
     job = Job.query.filter_by(id=id).first()
     if job:
         if Delivery.query.filter_by(user_id=current_user.id, job_id=id).first():
-            return render_template('job/job_detail.html', job=job, state=True)
-        else:
             return render_template('job/job_detail.html', job=job, state=False)
+        else:
+            return render_template('job/job_detail.html', job=job, state=True)
     else:
         abort(404)
 
@@ -102,7 +102,7 @@ def ban_job(id):
 @job.route("/apply/todolist")
 def todo():
     session['todo_page'] = page = request.args.get("page", default=1, type=int)
-    pagination = Delivery.query.filter_by(company=current_user.company, undisposed=True).paginate(
+    pagination = Delivery.query.filter_by(company=current_user.company, undisposed=True, interview=False).paginate(
         page=page,
         per_page=current_app.config['JOB_PER_PAGE'],
         error_out=False
@@ -138,13 +138,13 @@ def reject(id):
     delivery.undisposed = False
     db.session.add(delivery)
     db.session.commit()
-    return redirect(url_for('job.todo',page=session.get('todo_page')))
+    return redirect(url_for('job.todo', page=session.get('todo_page')))
+
 
 @job.route('/apply/interview/<int:id>')
 def inter(id):
-    delivery=Delivery.query.filter_by(id=id).first()
-    delivery.interview=True
+    delivery = Delivery.query.filter_by(id=id).first()
+    delivery.interview = True
     db.session.add(delivery)
     db.session.commit()
-    return redirect(url_for('job.todo',page=session.get('todo_page')))
-
+    return redirect(url_for('job.todo', page=session.get('todo_page')))
